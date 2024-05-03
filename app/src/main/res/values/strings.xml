@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Portfolio</string>
+    <string name="home_intro">Intro</string>
+    <string name="home_experience">Experience</string>
+    <string name="home_skills">Skills</string>
+    <string name="home_projects">Projects</string>
+    <string name="home_profile">Profile</string>
+</resources>
