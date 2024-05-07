@@ -95,7 +95,7 @@ fun PortfolioApp(
             LocalTextStyle provides LocalTextStyle.current.merge(
                 TextStyle(
                     fontFamily = FontFamily(
-                        Font(R.font.work_sans_regular)
+                        Font(R.font.asap)
                     )
                 )
             )
@@ -121,7 +121,6 @@ fun PortfolioApp(
                                     colors = IconButtonDefaults.iconButtonColors(contentColor = Color.Black),
                                     onClick = {
                                         coroutineScope.launch {
-                                            // opens drawer
                                             drawerState.open()
                                         }
                                     }) {

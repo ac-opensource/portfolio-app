@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -68,35 +69,59 @@ fun Experience() {
                 ) {
                     val expanded = remember { mutableStateOf(false) }
 
-                    Text(text = experience.position, style = MaterialTheme.typography.titleLarge, color = Color.Black)
-                    Text(text = experience.company, style = MaterialTheme.typography.titleSmall, color = Color.Black)
+                    Text(
+                        text = experience.position,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = experience.company,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Black
+                    )
                     Text(text = experience.website,
+                        style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
                         textDecoration = TextDecoration.Underline,
                         modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            data = Uri.parse(experience.website)
-                        }
-                        context.startActivity(intent)
-                    })
-                    Text(text = experience.date, color = Color.Black)
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = Uri.parse(experience.website)
+                            }
+                            context.startActivity(intent)
+                        })
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Text(
+                        text = experience.date,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                     if (expanded.value) {
-                        Text(text = experience.summary, color = Color.Black)
+                        Text(
+                            text = experience.summary,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.Black
+                        )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = "Show Less",
                             modifier = Modifier.clickable { expanded.value = false },
                             color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.bodySmall,
                             textDecoration = TextDecoration.Underline
                         )
                     } else {
-                        Text(text = experience.excerpt + "...", color = Color.Black)
+                        Text(
+                            text = experience.excerpt + "...",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.Black
+                        )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = "Read More",
                             modifier = Modifier.clickable { expanded.value = true },
                             color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.bodySmall,
                             textDecoration = TextDecoration.Underline
                         )
                     }

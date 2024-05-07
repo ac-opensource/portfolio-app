@@ -18,7 +18,7 @@ import com.aconcepcion.portfolio.R
 import com.aconcepcion.portfolio.ui.Intro
 import com.aconcepcion.portfolio.ui.home.aboutme.AboutMe
 import com.aconcepcion.portfolio.ui.home.experience.Experience
-import com.aconcepcion.portfolio.ui.home.experience.Skills
+import com.aconcepcion.portfolio.ui.home.skills.Skills
 import com.aconcepcion.portfolio.ui.home.projects.Projects
 
 fun NavGraphBuilder.addHomeGraph(
@@ -79,7 +79,20 @@ fun NavGraphBuilder.addHomeGraph(
         ) { from ->
         Experience()
     }
-    composable(HomeSections.PROFILE.route) {
+    composable(HomeSections.PROFILE.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentTransitionScope.SlideDirection.Up,
+                animationSpec = tween(700)
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                AnimatedContentTransitionScope.SlideDirection.Down,
+                animationSpec = tween(500)
+            )
+        }
+    ) { from ->
         AboutMe()
     }
 }

@@ -6,25 +6,27 @@ import androidx.compose.animation.core.AnimationVector2D
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.spring
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.nativeCanvas
-import com.aconcepcion.portfolio.ui.theme.MidnightBlue
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import com.aconcepcion.portfolio.ui.home.skills.SkillNode
+import com.aconcepcion.portfolio.ui.theme.MidnightBlue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.pow
 import kotlin.random.Random
 
 
@@ -37,7 +39,7 @@ data class FloatingNode(
 @Composable
 fun SelfArrangingNetworkGraph(skills: List<SkillNode>, modifier: Modifier = Modifier) {
     val scope = rememberCoroutineScope()
-    val canvasSize = remember { mutableStateOf(Size.Zero) } // Remember the size of the canvas
+    val canvasSize = remember { mutableStateOf(Size.Zero) }
 
     val floatingNodes = remember {
         skills.map { skill ->
@@ -99,7 +101,7 @@ fun SelfArrangingNetworkGraph(skills: List<SkillNode>, modifier: Modifier = Modi
 
             floatingNodes.forEach { node ->
                 val connectionsCount = node.skill.connections.size
-                val nodeRadius = baseNodeRadius + ((calculateTotalConnections(node.skill, skills)).toFloat() * 1f)  // Increase size for each connection
+                val nodeRadius = baseNodeRadius + ((calculateTotalConnections(node.skill, skills)).toFloat() * 1f)
 
                 val x = node.position.value.x.coerceIn(0f, size.width)
                 val y = node.position.value.y.coerceIn(0f, size.height)
@@ -162,3 +164,59 @@ suspend fun adjustForOverlaps(
         }
     }
 }
+
+
+data class SkillNode(
+    val name: String,
+    val connections: List<String>
+)
+
+val skills = listOf(
+    SkillNode(
+        "Android", listOf(
+            "Kotlin",
+            "Android SDK",
+            "Views",
+            "Jetpack Compose",
+            "MVP",
+            "MVVM",
+            "Bluetooth",
+            "NFC",
+            "Permissions",
+            "SQLite",
+            "Room",
+            "LiveData",
+            "Coroutines",
+        )
+    ),
+    SkillNode("Kotlin", listOf("Coroutines", "Jetpack Compose")),
+    SkillNode("Android SDK", listOf("Permissions")),
+    SkillNode("Views", listOf()),
+    SkillNode("Jetpack Compose", listOf("Kotlin", "Material Design")),
+    SkillNode("MVP", listOf()),
+    SkillNode("MVVM", listOf("LiveData")),
+    SkillNode("Bluetooth", listOf()),
+    SkillNode("NFC", listOf()),
+    SkillNode("Permissions", listOf("Android SDK")),
+    SkillNode("SQLite", listOf("Room")),
+    SkillNode("Room", listOf("SQLite")),
+    SkillNode("LiveData", listOf("MVVM")),
+    SkillNode("Coroutines", listOf("Kotlin")),
+    SkillNode("Mobile", listOf("Android", "iOS")),
+    SkillNode(
+        "iOS", listOf(
+            "Objective-C",
+            "Swift",
+            "Swift UI",
+            "Core Animation",
+            "Core Location",
+            "Combine",
+        )
+    ),
+    SkillNode("Objective-C", listOf()),
+    SkillNode("Swift", listOf("Swift UI", "Combine")),
+    SkillNode("Swift UI", listOf("Swift", )),
+    SkillNode("Core Animation", listOf()),
+    SkillNode("Core Location", listOf()),
+    SkillNode("Combine", listOf("Swift"))
+)
